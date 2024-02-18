@@ -42,13 +42,18 @@ clc
 sys = tf(b(1,:),a);
 bode(sys, 'r--')
 
-%Output x3 
-sys2 =  tf(b(2,:),a);
+% %Output x3 
+sys5 =  tf(b(2,:),a);
 hold on; 
-bode(sys2, 'b--')
+bode(sys5, 'b--')
 hold on;
 legend('x1','x3')
 
+
+% x1 has a pole in the origin (-90º and gain different from 0 in the
+% beggining), instable system due to an unstable pole
+
+% x3 has no pole in the origin and it is an unstable system 
 
 %% Task 5
 clc
