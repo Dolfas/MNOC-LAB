@@ -2,7 +2,8 @@
 clc
 load fp_lin_matrices_fit3.mat
 eigA = eig(A);
-fprintf('The eigenvalues of matrix A are: %d \n',eigA);
+fprintf('The eigenvalues of matrix A are: \n');
+disp(eigA)
 
 % Comment: One of the eigenvalues of A is 0 then this matrix is not
 % invertible 
@@ -57,15 +58,23 @@ legend('x1','x3')
 
 %% Task 5
 clc
+%State feedback vector of gains 
+R = 1;
+Q = eye(5);
+[K,S,P] = lqr(A,B,Q,R);
+fprintf('The state feedback vector of gains 𝐾, is: ');
+disp(K)
 
+%Closed loop poles
+cPoles = eig(A-B*K);
+fprintf('The closed loop poles for this desing are: ');
+disp(cPoles)
 
 %% Task 6
 clc
-
-
 %% Task 7
 clc
 %% Task 8 
-
+clc
 
 
