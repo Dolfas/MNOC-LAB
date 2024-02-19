@@ -28,7 +28,7 @@ fprintf('The rank of the observability matrix when we only want x3 is: %d \n',ra
 %dimension of the state then the state realization is not observable 
 
 
-C = [1,0,0,0,0;0,1,0,0,0];
+C = [1,0,0,0,0;0,0,1,0,0];
 ObsMatrix = obsv(A,C);
 rankObs = rank(ObsMatrix);
 fprintf('The rank of the observability matrix when we want x1 and x3 is: %d \n',rankObs);
@@ -72,6 +72,25 @@ disp(cPoles)
 
 %% Task 6
 clc
+
+load fp_lin_matrices_fit3.mat
+Qr = diag([10,0,1,0,0]);
+Rr = 1;
+K = lqr(A,B,Qr,Rr);
+
+x0 = [0.1 0 0 0 0]';
+D = [0 0 0 0 0]';
+T = 2;
+
+sim('statefdbk', T);
+
+gg=plot(t,x); 
+set(gg,'LineWidth',1.5) 
+gg=xlabel('Time (s9)'); 
+set(gg,'Fontsize',14); 
+gg=ylabel('\beta (rad)'); 
+set(gg,'Fontsize',14); 
+
 %% Task 7
 clc
 %% Task 8 
