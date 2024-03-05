@@ -106,12 +106,21 @@ set(gg,'Fontsize',14);
 clc
 
 G=eye(size(A));
-Qe=eye(size(A))*10;
+Qe=eye(size(A))*1e3;
 Re=eye(5);
 L=lqe(A,G,C,Qe,Re);
 
 %% Task 8 
 clc
+load('fp_lin_matrices_fit3.mat'); %Load Matrices A, B, C, D
+C = eye(5);
+Qr =diag([100,0,30,0,0]);   
+Rr = 1;                  
+K = lqr(A, B, Qr, Rr);  
+
+% Simulating the controller  
+x0=[0.1 0 0 0 0]'; 
+D=[0 0 0 0 0]'; 
 
 A_controler=A-B*K-L*C;
 B_controler=L;
@@ -122,6 +131,8 @@ D_controler=zeros(1,5);
 sp = pole(ss(A3, B3, C3, D3))
 sz = zero(ss(A3, B3, C3, D3))
 
+x0=[0.1 0 0 0 0]'; 
+D=[0 0 0 0 0]'; 
 T=5; %Time
 sim('simulationQ8',T);
 
