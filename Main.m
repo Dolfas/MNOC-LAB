@@ -78,8 +78,8 @@ disp(cPoles)
 clc
 load('fp_lin_matrices_fit3.mat'); %Load Matrices A, B, C, D
 C = eye(5);
-Qr =diag([80,0,30,0,0]);  %Weight Matrix for x 
-Rr = 1;                  %Weight for the input
+Qr =diag([10,0,1,0,0]);  %Weight Matrix for x 
+Rr = 0.6;                 %Weight for the input
 K = lqr(A, B, Qr, Rr);   %Calculate feedback gain
 
 % Simulating the controller  
@@ -110,13 +110,19 @@ Qe=eye(size(A))*1e3;
 Re=eye(5);
 L=lqe(A,G,C,Qe,Re);
 
+
+
 %% Task 8 
 clc
 load('fp_lin_matrices_fit3.mat'); %Load Matrices A, B, C, D
 C = eye(5);
-Qr =diag([100,0,30,0,0]);   
-Rr = 1;                  
+Qr =diag([10,0,1,0,0]);   
+Rr = 0.000000001;                  
 K = lqr(A, B, Qr, Rr);  
+G=eye(size(A));
+Qe=eye(size(A))*1e3;
+Re=eye(5);
+L=lqe(A,G,C,Qe,Re);
 
 % Simulating the controller  
 x0=[0.1 0 0 0 0]'; 
@@ -127,23 +133,26 @@ B_controler=L;
 C_controler=-K;
 D_controler=zeros(1,5);
 
-[A3, B3, C3, D3] = linmod('simulationQ8');
-sp = pole(ss(A3, B3, C3, D3))
-sz = zero(ss(A3, B3, C3, D3))
+
+% [A3, B3, C3, D3] = linmod('simulationQ8');
+% sp2 = pole(ss(A3, B3, C3, D3))
+% sz = zero(ss(A3, B3, C3, D3))
 
 x0=[0.1 0 0 0 0]'; 
 D=[0 0 0 0 0]'; 
-T=5; %Time
+T=2; %Time
 sim('simulationQ8',T);
 
 
 subplot(2,1,1);
+
 gg=plot(t,y(:,3));
 set(gg,'LineWidth',1.5)
 gg=xlabel('Time (s)');
 set(gg,'Fontsize',14);
 gg=ylabel('\beta (rad)');
-set(gg,'Fontsize',14);
+set(gg,'Fontsize',14)
+title('Negligible value of Rr');
 
 subplot(2,1,2);
 gg=plot(t,y(:,1));
@@ -152,4 +161,8 @@ gg=xlabel('Time (s)');
 set(gg,'Fontsize',14);
 gg=ylabel('\alpha (rad)');
 set(gg,'Fontsize',14);
+
+
+
+
 
