@@ -22,7 +22,7 @@ for i=1:4
 
     %vector of controller gains
     Qr =diag([2*10.^(i),0,10.^(i-1),0,0]);   
-    Rr = 5;    
+    Rr = 0.01;    
     K = lqr(A, B, Qr, Rr); 
 
     %used controllers 
@@ -45,7 +45,7 @@ subplot(2,1,1);
 hold on
 ylabel('\bf \beta (rad)')
 xlabel('\bf Time(s)')
-title('Rr =0.1 Qr(\beta)=1')
+title('Rr = 5')
 for ii = 1:4
 grid on 
 xlim([0 400])
@@ -62,7 +62,7 @@ xlabel('\bf Time(s)')
 for ii = 1:4
 grid on 
 xlim([0 400])
-plot(store_alpha(:,ii),'LineWidth',1.5,'DisplayName','Qr(\alpha) =' + string(10.^(ii)) + '  Qr(\beta) = ' + string(2*10.^(ii-1)))
+plot(store_alpha(:,ii),'LineWidth',1.5,'DisplayName','Qr(\alpha) =' + string(2*10.^(ii)) + '  Qr(\beta) = ' + string(10.^(ii-1)))
 end
 
 
