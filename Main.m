@@ -100,7 +100,7 @@ set(gg,'Fontsize',14);
 gg=ylabel('\beta (rad)');
 set(gg,'Fontsize',14);
 
-%Comment: The real part of the poles is negative, therefore the system is stable, whereas the imaginary part
+%Comment: Thive,e real part of the poles is negat therefore the system is stable, whereas the imaginary part
 %is non-zero which leads to an osclilating response
 %% Task 7
 clc
@@ -116,8 +116,8 @@ L=lqe(A,G,C,Qe,Re);
 clc
 load('fp_lin_matrices_fit3.mat'); %Load Matrices A, B, C, D
 C = eye(5);
-Qr =diag([10,0,1,0,0]);   
-Rr = 0.000000001;                  
+Qr =diag([100,0,10,0,0]);   
+Rr = 1;                  
 K = lqr(A, B, Qr, Rr);  
 G=eye(size(A));
 Qe=eye(size(A))*1e3;
