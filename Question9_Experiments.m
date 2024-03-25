@@ -15,9 +15,6 @@ T=3;
 store_beta = zeros(670,4);
 store_alpha = zeros(670,4);
 
-
-
-
 for i=1:4
 
     %vector of controller gains
