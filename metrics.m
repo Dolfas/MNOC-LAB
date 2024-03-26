@@ -1,31 +1,40 @@
-[mean_value,amp_alpha,amp_beta, mse_alpha, ...
+counter = 1;
+metrics_struct = struct('mean_value', [], ...
+                        'amp_alpha', [], 'amp_beta', [], ...
+                        'mse_alpha', [], 'mse_beta', [], ...
+                        'std_value', [], ...
+                        'alpha_overshoot', [], 'beta_overshoot', [], ...
+                        'ts_alpha', [], 'ts_beta', []);
+for i=1:4
+    y = angles_values(:,counter:counter+1);
+    [mean_value,amp_alpha,amp_beta, mse_alpha, ...
     mse_beta,std_value, alpha_overshoot, beta_overshoot, ...
     ts_alpha, ts_beta] = metrics_real_life(y);
-
-metrics_struct = struct('mean_value', mean_value, ...
+    counter = counter +2;
+    metrics_struct(i) = struct('mean_value', mean_value, ...
     'amp_alpha', amp_alpha, 'amp_beta', amp_beta, ...
     'mse_alpha', mse_alpha, 'mse_beta', mse_beta, ...
     'std_value', std_value, ...
     'alpha_overshoot', alpha_overshoot, 'beta_overshoot', beta_overshoot, ...
     'ts_alpha', ts_alpha, 'ts_beta', ts_beta);
 
-integrator = input('Input 1 if using integrator, 0 otherwise. \n');
-if integrator == 1
-    int_str = 'with';
-    Rr = Rr_integral;
-    Qr1 = Qr_integral(1,1);
-    Qr3 = Qr_integral(3,3);
-else
-    int_str = 'no';
-    Qr1 = Qr(1,1);
-    Qr3 = Qr(3,3);
 end
-Qe_value = Qe(1,1);
-Re_value = Re(1,1);
 
-file_name = ['Rr',num2str(Rr),'_Qr1_',num2str(Qr1),'_Qr3_',num2str(Qr3), ...
-    '_Qe',num2str(Qe_value),'_Re',num2str(Re_value),...
-    '_int',num2str(integrator)];
+% integrator = input('Input 1 if using integrator, 0 otherwise. \n');
+% if integrator == 1
+%     int_str = 'with';
+%     Rr = Rr_integral;
+%     Qr1 = Qr_integral(1,1);
+%     Qr3 = Qr_integral(3,3);
+% else
+%     int_str = 'no';
+%     Qr1 = Qr(1,1);
+%     Qr3 = Qr(3,3);
+% end
+% Qe_value = Qe(1,1);
+% Re_value = Re(1,1);
+% 
+file_name = 'Re_simulations';
 save(fullfile('metrics', [file_name, '.mat']), 'metrics_struct');
 
 function [mean_values,amp_alpha,amp_beta, mse_alpha, ...
