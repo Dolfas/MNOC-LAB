@@ -106,7 +106,8 @@ set(gg,'Fontsize',14);
 clc
 
 G=eye(size(A));
-Qe=eye(size(A))*1e3;
+%Qe=eye(size(A))*1e3;
+Qe= 100*B*(B');
 Re=eye(5);
 L=lqe(A,G,C,Qe,Re);
 
