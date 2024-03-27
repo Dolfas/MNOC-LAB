@@ -87,7 +87,7 @@ x0=[0.1 0 0 0 0]';
 D=[0 0 0 0 0]'; 
 T=2; %Time
 weight = 0.001;
-angles_values = zeros(453,2*4);
+angles_values = zeros(453,2*5);
 count = 1;
 for i = 1:5
     Rr = weight;    
@@ -129,10 +129,14 @@ x0=[0.1 0 0 0 0]';
 D=[0 0 0 0 0]'; 
 T=2; %Time 
 weight = 1;
-angles_values = zeros(446,2*4);
+angles_values = zeros(446,2*5);
 count = 1;
-for i = 1:4
-    Qe=eye(size(A))*weight;
+for i = 1:5
+    if i == 5
+        Qe= 1e2*B*(B');
+    else
+        Qe=eye(size(A))*weight;
+    end
     L=lqe(A,G,C,Qe,Re);
     A_controler=A-B*K-L*C;
     B_controler=L;
@@ -150,14 +154,14 @@ plot(t(1:446),angles_values(:, 1:2:end), 'LineWidth', 1);
 title('$\alpha$ values', 'Interpreter','latex');
 xlabel('Time (s)', 'Interpreter','latex');
 ylabel('Angle (rad)', 'Interpreter','latex');
-legend('Qe = 1', 'Qe = 10', 'Qe = 100', 'Qe = 1000', 'Interpreter','latex'); % Update legend as per your requirement
+legend('Qe = 1', 'Qe = 10', 'Qe = 100', 'Qe = 1000','Qe = 100BB$^T$', 'Interpreter','latex'); % Update legend as per your requirement
 
 subplot(2, 1, 2);
 plot(t(1:446),angles_values(:, 2:2:end), 'LineWidth', 1);
 title('$\beta$ values', 'Interpreter','latex');
 xlabel('Time (s)', 'Interpreter','latex');
 ylabel('Angle (rad)', 'Interpreter','latex');
-legend('Qe = 1', 'Qe = 10', 'Qe = 100', 'Qe = 1000', 'Interpreter','latex'); % Update legend as per your requirement
+legend('Qe = 1', 'Qe = 10', 'Qe = 100', 'Qe = 1000','Qe = 100BB$^T$', 'Interpreter','latex'); % Update legend as per your requirement
 % filename = 'Qe_simulations.png';
 % 
 % saveas(gcf, fullfile('figures/',filename));
